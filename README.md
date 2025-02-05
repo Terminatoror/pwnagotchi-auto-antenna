@@ -1,56 +1,56 @@
-📶 Pwnagotchi Smart WiFi Switch
-This script automatically switches between internal and external WiFi adapters on your Pwnagotchi, depending on whether a USB WiFi adapter is plugged in. No more reboots required!
+# 📶 Pwnagotchi Smart WiFi Switch  
 
-It runs in the background and detects WiFi adapter changes in real time, restarting the Pwnagotchi service with the correct WiFi interface.
+This script **automatically switches between internal and external WiFi adapters** on your **Pwnagotchi**, depending on whether a USB WiFi adapter is plugged in. No more reboots required!  
 
-🔧 Features
-✅ Hot-swappable – Detects WiFi adapter changes on the go
-✅ Automatic switching – Enables/disables external WiFi as needed
-✅ Service-based – Runs at boot for seamless operation
-✅ No reboots needed – Keeps your Pwnagotchi running smoothly
+It runs in the background and detects WiFi adapter changes in real time, restarting the Pwnagotchi service with the correct WiFi interface.  
 
-🛠️ Installation
-Copy the script (switch_wifi_smart.sh) to / and make it executable:
+## 🔧 Features  
+✅ **Hot-swappable** – Detects WiFi adapter changes on the go  
+✅ **Automatic switching** – Enables/disables external WiFi as needed  
+✅ **Service-based** – Runs at boot for seamless operation  
+✅ **No reboots needed** – Keeps your Pwnagotchi running smoothly  
 
-bash
-Kopieren
-Bearbeiten
-sudo cp switch_wifi_smart.sh /
-sudo chmod +x /switch_wifi_smart.sh
-Create the service file at /etc/systemd/system/switch_wifi_smart.service:
+## 🛠️ Installation  
 
-ini
-Kopieren
-Bearbeiten
-[Unit]
-Description=Wifi Switch Script
-After=network.target
+1. **Copy the script** (`switch_wifi_smart.sh`) to `/` and make it executable:  
+   ```bash
+   sudo cp switch_wifi_smart.sh /
+   sudo chmod +x /switch_wifi_smart.sh
+   ```
 
-[Service]
-Type=simple
-ExecStart=/bin/bash /switch_wifi_smart.sh
-Restart=always
-RestartSec=5
-User=root
-Group=root
+2. **Create the service file** at `/etc/systemd/system/switch_wifi_smart.service`:  
 
-[Install]
-WantedBy=multi-user.target
-Enable and start the service:
+   ```ini
+   [Unit]
+   Description=Wifi Switch Script
+   After=network.target
 
-bash
-Kopieren
-Bearbeiten
-sudo systemctl daemon-reload
-sudo systemctl enable switch_wifi_smart.service
-sudo systemctl start switch_wifi_smart.service
-Check if the service is running properly:
+   [Service]
+   Type=simple
+   ExecStart=/bin/bash /switch_wifi_smart.sh
+   Restart=always
+   RestartSec=5
+   User=root
+   Group=root
 
-bash
-Kopieren
-Bearbeiten
-sudo systemctl status switch_wifi_smart.service
-📝 Notes
-Ensure your script (/switch_wifi_smart.sh) properly detects the presence of a USB WiFi adapter and restarts Pwnagotchi accordingly.
-You can modify RestartSec=5 to change the polling interval for adapter detection.
-Now your Pwnagotchi will automatically switch WiFi adapters without requiring a reboot! 🚀
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. **Enable and start the service**:  
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable switch_wifi_smart.service
+   sudo systemctl start switch_wifi_smart.service
+   ```
+
+4. **Check if the service is running properly**:  
+   ```bash
+   sudo systemctl status switch_wifi_smart.service
+   ```
+
+## 📝 Notes  
+- Ensure your script (`/switch_wifi_smart.sh`) properly detects the presence of a USB WiFi adapter and restarts Pwnagotchi accordingly.  
+- You can modify `RestartSec=5` to change the polling interval for adapter detection.  
+
+Now your Pwnagotchi will **automatically switch WiFi adapters without requiring a reboot!** 🚀
